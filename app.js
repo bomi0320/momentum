@@ -1,9 +1,15 @@
 const loginForm = document.querySelector('#login-form');
-const loginButton = document.querySelector('#login-form button');
+const loginInput = document.querySelector('#login-form input');
+const greeting = document.querySelector('#greeting');
 
-function onLoginSubmit() {
+const HIDDEN_CLASSNAME = 'hidden';
+
+function onLoginSubmit(event) {
+  event.preventDefault(); //새로고침 막기
+  loginForm.classList.add(HIDDEN_CLASSNAME);
   const username = loginInput.value;
-  console.log(username);
+  greeting.innerText = `Hello ${username}!`;
+  greeting.classList.remove(HIDDEN_CLASSNAME);
 }
 
 loginForm.addEventListener('submit', onLoginSubmit);
