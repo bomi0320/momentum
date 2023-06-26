@@ -5,9 +5,10 @@ const greeting = document.querySelector('#greeting');
 const HIDDEN_CLASSNAME = 'hidden';
 
 function onLoginSubmit(event) {
-  event.preventDefault(); //새로고침 막기
+  event.preventDefault();
   loginForm.classList.add(HIDDEN_CLASSNAME);
   const username = loginInput.value;
+  localStorage.setItem('username', username); //유저 이름 저장하기
   greeting.innerText = `Hello ${username}!`;
   greeting.classList.remove(HIDDEN_CLASSNAME);
 }
