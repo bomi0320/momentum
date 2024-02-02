@@ -13,12 +13,15 @@ function saveToDos() {
 function deleteToDo(event) {
   const li = event.target.parentElement; //부모인 li 찾기
   li.remove(); //li 삭제!
+  toDos = toDos.filter((toDo) => toDo.id !== parseInt(li.id));
+  saveToDos();
 }
 
 function paintToDo(newTodo) {
   const li = document.createElement('li');
+  li.id = newTodo.id;
   const span = document.createElement('span');
-  span.innerText = newTodo;
+  span.innerText = newTodo.text;
   const button = document.createElement('button');
   button.innerText = '❌';
   button.addEventListener('click', deleteToDo); //버튼 누르면 todo 삭제
@@ -31,8 +34,12 @@ function handleToDoSubmit(event) {
   event.preventDefault(); //새로고침 막기
   const newTodo = toDoInput.value; //input에 적힌 text 저장하기
   toDoInput.value = ''; //제출한 후 input 비우기
-  toDos.push(newTodo); //toDos array에 newTodo 넣기
-  paintToDo(newTodo);
+  const newTodoObj = {
+    text: newTodo,
+    id: Date.now(), //random. id로 li item을 구분.
+  };
+  toDos.push(newTodoObj); //toDos array에 newTodo 넣기
+  paintToDo(newTodoObj);
   saveToDos();
 }
 
